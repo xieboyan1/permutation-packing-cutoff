@@ -1,0 +1,79 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\word}[1]{\mathtt{#1}}
+
+\title{No uniform cutoff for prescribed permutation packings}
+\date{November 2026}
+
+\begin{document}
+\begin{abstract}
+For every $r\ge1$, we construct two patterns of length $4r+8$ with a common overlap $2r+4$. Their packing counts agree through $r+2$ prescribed occurrences and first differ at $r+3$. This rules out a uniform cutoff, including the cutoff of five suggested by Blitvi\'c, Kammoun, and Steingr\'imsson.
+\end{abstract}
+\maketitle
+
+For a permutation pattern $\pi$ of length $K$ and an overlap $m$, let $N_{\pi}^{m}(j)$ count permutations of length $K+(j-1)(K-m)$ that realize $\pi$ in each of the windows starting at $1+i(K-m)$ for $0\le i<j$. Any additional occurrences are allowed. Blitvi\'c, Kammoun, and Steingr\'imsson ask whether agreeing for five terms forces two such sequences to coincide \cite[Section 7, Question 8]{BKS}.
+
+For a word $w$ with $m$ letters $\word{P}$ and $m$ letters $\word{S}$, write $\pi(w)$ for the length-$2m$ permutation obtained by listing first the positions of the $\word{P}$ letters, in increasing order, and then the positions of the $\word{S}$ letters, in increasing order. Its overlap $m$ is admissible because its two halves are increasing.
+
+\begin{theorem}\label{thm:main}
+For every integer $r\ge1$, take the two words
+\[
+ A_r=\word{P}(\word{PPSS})^r\word{PSSPS},\qquad
+ B_r=\word{PPS}(\word{PPSS})^r\word{PSSPS}.
+\]
+Set $\alpha_r=\pi(A_r\word{SP})$ and $\beta_r=\pi(B_r)$, both of length $4r+8$, and put $m=2r+4$. Then
+\[
+ N_{\alpha_r}^{m}(j)=N_{\beta_r}^{m}(j)\quad(1\le j\le r+2),
+ \qquad N_{\alpha_r}^{m}(j)<N_{\beta_r}^{m}(j)\quad(j\ge r+3).
+\]
+\end{theorem}
+
+\begin{proof}
+For overlap equal to half the pattern length, the positions in a packing split into $j+1$ consecutive rows of equal length, indexed by $0,\ldots,j$. A window consists of row $i$ followed by row $i+1$. Its values in increasing order follow the merge prescribed by $w$, with letters $\word{P}$ from row $i$ and letters $\word{S}$ from row $i+1$. These window comparisons generate a poset, and the packings are its linear extensions. To see that these comparisons are consistent, add the windows one at a time, shuffling the old and new orders in the gaps between successive elements of the shared row. Assigning the values in the order of a linear extension then gives exactly one packing.
+
+Write $b=2r+3$ for the row length of the poset from $A_r$, and $X_{i,k}$ for the position of index $k$ in row $i$ of that poset. Appending $\word{SP}$ to $A_r$ adds a new last position in each row. The old row maxima increase from row $0$ to row $j$ because $A_r$ ends in $\word{PS}$. The new positions decrease in that direction because the appended letters are $\word{SP}$. In row $j$ the old maximum is smaller than the new position. Consequently all old positions precede all new positions, and the new positions form a chain. This padding preserves the count at every $j$.
+
+The poset for $B_r$ can instead be formed by adding a new first position $Y_i$ in each row. In each window the first $\word{P}$ and the first $\word{S}$ represent these new positions, and deleting them from the word gives $A_r$. The whole change to the relations can be specified by
+\begin{equation}\label{eq:insert}
+ Y_0<X_{0,1},\qquad X_{i,1}<Y_{i+1}<X_{i,2}\quad(0\le i<j).
+\end{equation}
+Indeed, the new local order starts $Y_i<X_{i,1}<Y_{i+1}<X_{i,2}$. Also $X_{i,2}<X_{i+1,1}$ in the old order, since $A_r$ starts with $\word{PPPSS}$, so these relations give the new comparisons in both adjoining rows. The old first positions increase from row $0$ to row $j$. Thus $X_{0,1}$ is the old minimum and the insertion intervals in \eqref{eq:insert} are disjoint in every old linear extension. Each old extension has at least one extension to the enlarged poset. It has more than one exactly when some old position can lie between $X_{i,1}$ and $X_{i,2}$ in that old extension.
+
+For a position of index $k$ in one row, let $f(k)$ be the least index of a position strictly above it in the next row. Let $g(k)$ be the least index of a position strictly above it in the previous row. Set the value to $\infty$ when there is no such index, and extend both functions by fixing $\infty$. These functions are nondecreasing. For travel across $d$ rows in one direction, the least reachable index is exactly $f^d(k)$ or $g^d(k)$, respectively. The bound is attained by crossing one row at a time whenever the iterate is finite. Conversely, any directed path reaching the target row must first visit the intermediate rows in order. Between first visiting an intermediate row and leaving it for the next required row, the path can only increase the index when it returns to that intermediate row, since every row is a chain. Induction at the first crossings gives the same lower bound, including when the path returns to the target row after its first visit.
+
+Reading the adjacent-row order from $A_r$ gives
+\[
+\begin{aligned}
+ &f(1)=1,\quad f(2h)=f(2h+1)=2h-1\ (1\le h\le r),\\
+ &f(b-1)=b-2,\quad f(b)=b,\\[2pt]
+ &g(2h-1)=g(2h)=2h+2\ (1\le h\le r),\\
+ &g(b-2)=g(b-1)=b,\quad g(b)=\infty.
+\end{aligned}
+\]
+Any old position lying between $X_{i,1}$ and $X_{i,2}$ in some extension must be in an earlier row. Positions in row $i$ are in its chain, and every position in a later row lies above $X_{i+1,1}>X_{i,2}$ when a later row exists. For a position $X_{i-d,k}$ with $1\le d\le i$, such an extension exists exactly when
+\begin{equation}\label{eq:gap}
+ f^d(k)>1\qquad\text{and}\qquad k<g^d(2).
+\end{equation}
+The first condition says the position is not below $X_{i,1}$ and the second says it is not above $X_{i,2}$. Together they allow imposing $X_{i,1}<X_{i-d,k}<X_{i,2}$ without a cycle, because $X_{i,1}<X_{i,2}$ already holds.
+
+For $1\le d\le r$, $f^d(k)=1$ exactly for $k\le 2d+1$, whereas $g^d(2)=2d+2$. Thus \eqref{eq:gap} has no solution. For $d=r+1$, $f^d(k)=1$ for all $k\le b-1$ and $g^d(2)=b$, so there is again no solution. At $d=r+2$, $k=b$ satisfies \eqref{eq:gap}, since $f$ fixes $b$ and $g^{r+2}(2)=\infty$. The largest distance available in \eqref{eq:insert} is $j-1$. This proves equality for $j\le r+2$ and strict inequality for every $j\ge r+3$.
+\end{proof}
+
+In particular, the required number of terms for a length-dependent cutoff is at least $K/4+1$ on lengths $K=4r+8$. At $r=3$, both patterns have length $20$ and overlap $10$. The first six counts are
+\[
+\begin{array}{c|rrrrrr}
+ &1&2&3&4&5&6\\\hline
+\alpha_3 &1&3&18&172&2313&36000\\
+\beta_3  &1&3&18&172&2313&38313
+\end{array}
+\]
+The accompanying Python verifier constructs the position inequalities directly from the two explicit permutations. Its recursion assigns ranks in increasing order, summing over every unassigned position whose required smaller positions have already been assigned.
+
+\begin{thebibliography}{9}
+\bibitem{BKS} N. Blitvi\'c, M. S. Kammoun, and E. Steingr\'imsson, \emph{Permutations, Pattern Covers, Posets and Positivity: Part I: Patterns and Posets}, \href{https://arxiv.org/abs/2610.29846v1}{arXiv:2610.29846v1}, 2026.
+\end{thebibliography}
+
+\end{document}
